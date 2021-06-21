@@ -1,6 +1,6 @@
 package com.cda.testIntractiv.exceptions;
 
-public class UserInexistantException extends Exception {
+public class PasswordIsNotCorrectException extends Exception {
 
 	/**
 	 * 

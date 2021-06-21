@@ -2,11 +2,11 @@ package com.cda.testIntractiv.servicesImpl;
 
 import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cda.testIntractiv.exceptions.PasswordIsNotCompliantException;
+import com.cda.testIntractiv.exceptions.PasswordIsNotCorrectException;
 import com.cda.testIntractiv.exceptions.UserAlreadyExistException;
 import com.cda.testIntractiv.exceptions.UserInexistantException;
 import com.cda.testIntractiv.model.Password;
@@ -19,9 +19,6 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private IUserRepository userRepository;
-
-	@Autowired
-	private ModelMapper modelMapper;
 
 	Password pwd = new Password();
 
@@ -54,6 +51,33 @@ public class UserServiceImpl implements IUserService {
 
 			return userOpt.get();
 		}
+
+	}
+
+	@Override
+	public boolean verify(String login, String password) throws UserInexistantException, PasswordIsNotCorrectException {
+
+		Optional<User> userOpt = this.userRepository.findByName(login);
+		System.out.println(userOpt.get().getPassword());
+		System.out.println(Password.getHash(password));
+		System.out.println(password);
+		
+		String pwd1 = userOpt.get().getPassword();
+		String pwd2 = Password.getHash(password);
+		if (userOpt.isEmpty()) {
+
+			throw new UserInexistantException();
+
+		}else {
+			if (pwd1.equals(pwd2)) {
+
+				return true;
+			} else {
+				throw new PasswordIsNotCorrectException();
+			}
+		}
+
+		
 
 	}
 
