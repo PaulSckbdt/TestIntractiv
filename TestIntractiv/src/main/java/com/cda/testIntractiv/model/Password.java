@@ -57,7 +57,7 @@ public class Password {
 			compliance.setReason("at least one uppercase letter");
 		} else {
 			compliance.setValid(true);
-			compliance.setReason("le mot de passe est valide");
+			compliance.setReason("password is compliant");
 		}
 
 		return compliance;

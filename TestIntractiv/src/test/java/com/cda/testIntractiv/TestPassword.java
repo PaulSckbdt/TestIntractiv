@@ -3,10 +3,12 @@ package com.cda.testIntractiv;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cda.testIntractiv.model.Compliance;
 import com.cda.testIntractiv.model.Password;
 
+@SpringBootTest
 class TestPassword {
 
 	@Test
@@ -39,15 +41,12 @@ class TestPassword {
 		System.out.println(compliance);
 		assertFalse(compliance.isValid());
 		assertEquals(compliance.getReason(), "at least one uppercase letter");
-		
+
 		compliance = pwd.testCompliance("aAaf123e@zfa");
 
 		System.out.println(compliance);
 		assertTrue(compliance.isValid());
-		assertEquals(compliance.getReason(), "le mot de passe est valide");
-
-
-
+		assertEquals(compliance.getReason(), "password is compliant");
 
 	}
 
